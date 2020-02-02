@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class ProductBacklogItemController extends BaseController
 {
+    public function destroy($id) {
+        ProductBacklogItem::destroy($id);
+
+        return response(null, Response::HTTP_OK);
+    }
+
     public function store(Request $request) {
         $pbi = new ProductBacklogItem();
         $pbi->name = $request->name;

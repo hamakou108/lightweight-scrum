@@ -18,5 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('product-backlog-items', 'ProductBacklogItemController')->only([
-    'index', 'store'
+    'index', 'store', 'destroy'
 ]);
