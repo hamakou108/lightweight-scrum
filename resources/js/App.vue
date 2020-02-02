@@ -33,12 +33,6 @@
             }
         },
         methods: {
-            del(id) {
-                window.axios.delete(`/api/product-backlog-items/${id}`).then(() => {
-                    let index = this.pbis.findIndex(pbi => pbi.id === id);
-                    this.pbis.splice(index, 1);
-                });
-            },
             read() {
                 window.axios.get('/api/product-backlog-items').then(({data}) => {
                     data.forEach(pbi => {
@@ -51,6 +45,12 @@
                     "name": this.newPbi.name
                 }).then(({data}) => {
                     this.pbis.push(new ProductBacklogItem(data));
+                });
+            },
+            del(id) {
+                window.axios.delete(`/api/product-backlog-items/${id}`).then(() => {
+                    let index = this.pbis.findIndex(pbi => pbi.id === id);
+                    this.pbis.splice(index, 1);
                 });
             }
         },
