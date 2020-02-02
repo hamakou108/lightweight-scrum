@@ -24,4 +24,10 @@ class ProductBacklogItemController extends BaseController
     public function index() {
         return response(ProductBacklogItem::all()->jsonSerialize(), Response::HTTP_OK);
     }
+
+    public function destroy($id) {
+        ProductBacklogItem::destroy($id);
+
+        return response(null, Response::HTTP_OK);
+    }
 }
