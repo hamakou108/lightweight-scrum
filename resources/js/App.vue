@@ -8,6 +8,10 @@
                 v-bind="pbi"
                 :key="pbi.id"
         ></product-backlog-item-component>
+        <div>
+            <input v-model="newPbi.name" placeholder="Input Product Backlog Item Name">
+            <button @click="store()">Add</button>
+        </div>
     </div>
 </template>
 <script>
@@ -21,7 +25,10 @@
     export default {
         data() {
             return {
-                pbis: []
+                pbis: [],
+                newPbi: {
+                    name: ''
+                }
             }
         },
         methods: {
@@ -30,6 +37,13 @@
                     data.forEach(pbi => {
                         this.pbis.push(new ProductBacklogItem(pbi));
                     });
+                });
+            },
+            store() {
+                window.axios.post('/api/product-backlog-items', {
+                    "name": this.newPbi.name
+                }).then(({data}) => {
+                    this.pbis.push(new ProductBacklogItem(data));
                 });
             }
         },
