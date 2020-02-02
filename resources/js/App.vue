@@ -7,6 +7,7 @@
                 v-for="pbi in pbis"
                 v-bind="pbi"
                 :key="pbi.id"
+                @delete="del"
         ></product-backlog-item-component>
         <div>
             <input v-model="newPbi.name" placeholder="Input Product Backlog Item Name">
@@ -32,6 +33,12 @@
             }
         },
         methods: {
+            del(id) {
+                window.axios.delete(`/api/product-backlog-items/${id}`).then(() => {
+                    let index = this.pbis.findIndex(pbi => pbi.id === id);
+                    this.pbis.splice(index, 1);
+                });
+            },
             read() {
                 window.axios.get('/api/product-backlog-items').then(({data}) => {
                     data.forEach(pbi => {
